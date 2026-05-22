@@ -1,0 +1,32 @@
+.button-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+.zero-button-container {
+    grid-column: span 2;
+    aspect-ratio: auto;
+}
+button {
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+    width: 100%;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+.button-container button {
+    aspect-ratio: 1 / 1;
+}
+.zero-button-container button {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+}
+.number-button {
+    background: #27313D;
+    color: #1E77DC;
+}
+.operator-button {
+    background: #1E77DC;
+    color: #EDF2FF;
+}
