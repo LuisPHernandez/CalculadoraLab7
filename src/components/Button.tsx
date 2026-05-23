@@ -5,7 +5,7 @@ type ButtonProps = {
   isZero: boolean
   label: string
   onPress: () => void
-};
+}
 
 export default function Button({ label, onPress, isNumber, isZero }: ButtonProps) {
     return (
