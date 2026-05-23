@@ -16,6 +16,6 @@ const preview: Preview = {
       test: 'todo'
     }
   },
-};
+}
 
-export default preview;
+export default preview

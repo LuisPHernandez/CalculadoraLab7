@@ -1,10 +1,10 @@
-import "./Button.css";
+import "./Button.css"
 
 type ButtonProps = {
-  isNumber: boolean;
-  isZero: boolean;
-  label: string;
-  onPress: () => void;
+  isNumber: boolean
+  isZero: boolean
+  label: string
+  onPress: () => void
 };
 
 export default function Button({ label, onPress, isNumber, isZero }: ButtonProps) {
