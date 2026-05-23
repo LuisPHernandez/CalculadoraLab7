@@ -13,7 +13,6 @@ export default function Calculator() {
     const MAX_DISPLAY_VALUE = 999999999
 
     const handleButtonPress = (value: string) => {
-        console.log("Button pressed:", value)
         if (!Number.isNaN(Number(value))) {
             if (displayNumber === "ERROR") {
                 setDisplayNumber("0")
@@ -47,7 +46,17 @@ export default function Calculator() {
                 setDisplayNumber("0")
                 return
             }
-            setDisplayNumber((prev) => prev.startsWith("-") ? prev.slice(1) : "-" + prev)
+            setDisplayNumber((prev) => {
+                if (prev.startsWith("-")) {
+                    return prev.slice(1)
+                }
+
+                if (prev.length >= MAX_DISPLAY_LENGTH) {
+                    return prev
+                }
+
+                return "-" + prev
+            })
         } else if (value === "+" || value === "-" || value === "*" || value === "/") {
             if (displayNumber === "ERROR" || displayNumber === "NaN") {
                 setDisplayNumber("0")
