@@ -9,41 +9,83 @@ export default function Calculator() {
     const [restartDisplayNumber, setRestartDisplayNumber] = useState(false)
     const [operation, setOperation] = useState("")  
 
-    const hanleButtonPress = (value: string) => {
+    const MAX_DISPLAY_LENGTH = 9
+    const MAX_DISPLAY_VALUE = 999999999
+
+    const handleButtonPress = (value: string) => {
         console.log("Button pressed:", value)
         if (!Number.isNaN(Number(value))) {
+            if (displayNumber === "ERROR") {
+                setDisplayNumber("0")
+                return
+            }
             if (restartDisplayNumber) {
                 setDisplayNumber("0")
                 setRestartDisplayNumber(false)
             }
-            setDisplayNumber((prev) => prev === "0" ? value : prev + value)
+
+            setDisplayNumber((prev) => {
+                if (prev.length >= MAX_DISPLAY_LENGTH) {
+                    return prev
+                }
+
+                return prev === "0" ? value : prev + value
+            })
         } else if (value === "C") {
             setDisplayNumber("0")
             setFirstOperand(null)
             setRestartDisplayNumber(false)
             setOperation("")
         } else if (value === "back") {
+            if (displayNumber === "ERROR" || displayNumber === "NaN") {
+                setDisplayNumber("0")
+                return
+            } 
             setDisplayNumber((prev) => prev.length > 1 ? prev.slice(0, -1) : "0")
         } else if (value === "+/-") {
+            if (displayNumber === "ERROR" || displayNumber === "NaN") {
+                setDisplayNumber("0")
+                return
+            }
             setDisplayNumber((prev) => prev.startsWith("-") ? prev.slice(1) : "-" + prev)
         } else if (value === "+" || value === "-" || value === "*" || value === "/") {
-            if (firstOperand !== null) {
-                setDisplayNumber(String(calculate(firstOperand, Number(displayNumber), operation)))
-                setFirstOperand(null)
-            } else {
-                setFirstOperand(Number(displayNumber))
-                setOperation(value)
-                setRestartDisplayNumber(true)
-                console.log("First operand set to:", Number(displayNumber), "Operation set to:", value)
+            if (displayNumber === "ERROR" || displayNumber === "NaN") {
+                setDisplayNumber("0")
+                return
             }
-        } else if (value === "=") {
+
+            const currentNumber = Number(displayNumber)
+
             if (firstOperand !== null) {
-                setDisplayNumber(String(calculate(firstOperand, Number(displayNumber), operation)))
+                const result = calculate(firstOperand, currentNumber, operation)
+                const formattedResult = formatDisplayValue(result)
+
+                setDisplayNumber(formattedResult)
+                setFirstOperand(formattedResult === "ERROR" ? null : Number(formattedResult))
+            } else {
+                setFirstOperand(currentNumber)
+            }
+            setOperation(value)
+            setRestartDisplayNumber(true)
+        } else if (value === "=") {
+            if (displayNumber === "ERROR" || displayNumber === "NaN") {
+                setDisplayNumber("0")
+                return
+            }
+            if (firstOperand !== null) {
+                const result = calculate(firstOperand, Number(displayNumber), operation)
+
+                setDisplayNumber(formatDisplayValue(result))
                 setFirstOperand(null)
                 setOperation("")
+                setRestartDisplayNumber(true)
             }
         } else if (value === ".") {
-            if (!displayNumber.includes(".")) {
+            if (displayNumber === "ERROR" || displayNumber === "NaN") {
+                setDisplayNumber("0")
+                return
+            }
+            if (!displayNumber.includes(".") && displayNumber.length < MAX_DISPLAY_LENGTH) {
                 setDisplayNumber((prev) => prev + ".")
             }
         }
@@ -64,10 +106,33 @@ export default function Calculator() {
         }
     }
 
+    const formatDisplayValue = (value: number) => {
+        if (value < 0 || value > MAX_DISPLAY_VALUE) {
+            return "ERROR"
+        }
+
+        const textValue = String(value)
+
+        if (textValue.length <= MAX_DISPLAY_LENGTH) {
+            return textValue
+        }
+
+        const integerLength = String(Math.trunc(value)).length
+
+        if (integerLength >= MAX_DISPLAY_LENGTH) {
+            return "ERROR"
+        }
+
+        const decimalsAllowed = MAX_DISPLAY_LENGTH - integerLength - 1
+        const roundedValue = value.toFixed(decimalsAllowed)
+
+        return roundedValue.length <= MAX_DISPLAY_LENGTH ? roundedValue : "ERROR"
+    }
+
     return (
         <div className="calculator">
             <Screen value={displayNumber} />
-            <Keyboard onButtonPress={hanleButtonPress} />
+            <Keyboard onButtonPress={handleButtonPress} />
         </div>
     )
 }
