@@ -3,10 +3,9 @@
 Calculadora simple hecha con React, TypeScript y Vite para practicar componentes,
 testing, Storybook y linting.
 
-## Links de entrega
+## Link de entrega
 
 - Aplicacion publicada: http://34.51.81.158/
-- Codigo fuente: pendiente de agregar link del repositorio
 
 ## Requisitos implementados
 
@@ -58,8 +57,3 @@ Correr Storybook:
 ```bash
 npm run storybook
 ```
-
-## Notas
-
-No se debe subir `node_modules` al repositorio. Las dependencias se instalan desde
-`package-lock.json` usando `npm install`.
