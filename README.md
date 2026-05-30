@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# Calculadora Lab 7
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Calculadora simple hecha con React, TypeScript y Vite para practicar componentes,
+testing, Storybook y linting.
 
-Currently, two official plugins are available:
+## Links de entrega
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Aplicacion publicada: http://34.51.81.158/
+- Codigo fuente: pendiente de agregar link del repositorio
 
-## React Compiler
+## Requisitos implementados
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Display y teclado numerico con botones HTML.
+- Entrada exclusivamente desde los botones.
+- Concatenacion de digitos en el display.
+- Operaciones encadenadas con resultado parcial al presionar otra operacion.
+- Boton de igualdad.
+- Suma, resta, multiplicacion y division.
+- Punto decimal.
+- Funcion `+/-`.
+- Limite de 9 caracteres en el display.
+- `ERROR` para resultados negativos o mayores a `999999999`.
+- Logica principal en hook propio: `useCalculator`.
+- Componentes separados para pantalla, teclado y botones.
+- Historias de Storybook.
+- Tests con Vitest y Testing Library.
+- ESLint con reglas para prohibir punto y coma y lineas mayores a 120 caracteres.
+- Title y favicon personalizados.
 
-## Expanding the ESLint configuration
+## Scripts
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Instalar dependencias:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Correr tests:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm test
 ```
+
+Correr lint:
+
+```bash
+npm run lint
+```
+
+Compilar para produccion:
+
+```bash
+npm run build
+```
+
+Correr Storybook:
+
+```bash
+npm run storybook
+```
+
+## Notas
+
+No se debe subir `node_modules` al repositorio. Las dependencias se instalan desde
+`package-lock.json` usando `npm install`.
