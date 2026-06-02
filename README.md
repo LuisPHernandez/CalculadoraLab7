@@ -5,7 +5,7 @@ testing, Storybook y linting.
 
 ## Link de entrega
 
-- Aplicacion publicada: http://34.51.81.158/
+- Aplicacion publicada: http://34.51.81.158/calculadora/
 
 ## Requisitos implementados
 
